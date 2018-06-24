@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- HandlerMapping -->
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+
+    <!-- HandlerAdapter -->
+   <!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+
+    <!--Spring3.1开始的注解 HandlerMapping -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <!--Spring3.1开始的注解 HandlerAdapter -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+
+    <!-- ViewResolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 处理器 /hello为request mapping路径 -->
+    <bean id="/hello" class="com.zhujq.learn.mvc.controller.HelloWorldController"></bean>
+
+    <bean id="/helloAbstract" class="com.zhujq.learn.mvc.controller.HelloWorldWithAbstractController">
+     <!--   <property name="requireSession" value="true"/>-->
+        <property name="cacheSeconds" value="0"/>
+       <!-- <property name="supportedMethods" value="POST"></property>-->
+    </bean>
+
+    <bean name="/helloLastModified"
+          class="com.zhujq.learn.mvc.controller.HelloWorldWithAbstractController"/>
+
+
+    <!--请求参数绑定对象-->
+    <bean name="/abstractCommand" class="com.zhujq.learn.mvc.controller.MyAbstractCommandController">
+        <!-- 也可以通过依赖注入 注入命令实现类 -->
+        <!-- property name="commandClass" value="cn.javass.chapter4.model.UserModel"/-->
+    </bean>
+
+    <bean class="com.zhujq.learn.mvc.controller.HelloWorldAnnotationController"></bean>
+    <bean class="com.zhujq.learn.mvc.controller.HelloWorldAnnotationController2"></bean>
+
+</beans>
